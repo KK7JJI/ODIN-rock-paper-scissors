@@ -10,6 +10,7 @@ function playgame() {
         "Scissors"
     ];
 
+    // define players
     function Player(playerType) {
         this.playerType = playerType; //0 = human, 1 = computer
         this.playerChoice = 0; //0 Rock, 1 Paper, 2 Scissors
@@ -20,8 +21,10 @@ function playgame() {
     const player2 = new Player(1);
     const gameMatchCountTotal = 5; // total number of matches to be played in a set.
 
-    let i = 0
+    // rounds are executed in a while loop.  The round counter increments by 1 for 
+    // each round that does not result in a tie.
 
+    let i = 0
     while (i < gameMatchCountTotal) {
         playRound()
     
@@ -32,17 +35,22 @@ function playgame() {
             i = i + 1;
             // print the next round heading.  It's here because 
             // we don't want it to print when a match results in a tie.
-            (i > 0) ? console.log(`Begin Round ${i+1}`) : 0;
+            (i > 0 && i < gameMatchCountTotal) ? console.log(`Begin Round ${i+1}`) : 0;
         }
     }
     
-        logGameWinner();
+    // Show final scores and declare a winner.
+    logGameWinner();
 
+    //********************************************************* */
     // playgame functions follow, all are called within playGame.
+    //********************************************************* */
 
     function playRound() {
         // print the initial round heading.
-        (i == 0) ? console.log(`Begin Round ${i+1}`) : 0
+        if (i == 0) {
+            console.log(`Begin Round ${i+1}`);
+        }
 
         if (player1.playerType == 0) {
             player1.playerChoice = humanChoice();
@@ -55,13 +63,8 @@ function playgame() {
         console.log(`Player 2 chooses: ${choices[player2.playerChoice]}, ${player2.playerChoice}`);
 
         winner = evaluateMatchWinner();
-        
-        if (winner == "Player 1") {
-            player1.playerScore += 1;
-        } else if (winner == "Player 2") {
-            player2.playerScore += 1;
-        }
-        
+        (!(winner == "Tie Game")) ? updatePlayerScores(winner) : 0;
+
     }
 
     function selectGameMode() {
@@ -75,14 +78,14 @@ function playgame() {
     }
 
     function humanChoice() {
-        return +prompt("0 = Rock, 1 = Paper, 2 = Scissors");
+        return +prompt("Enter a number; 0 = Rock, 1 = Paper, 2 = Scissors");
 
     }
 
     function updatePlayerScores(winner) {
-        if (winner == "player 1") {
+        if (winner == "Player 1") {
             player1.playerScore += 1;
-        } else {
+        } else if (winner == "Player 2") {
             player2.playerScore += 1;
         }
     }
