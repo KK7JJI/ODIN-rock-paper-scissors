@@ -3,7 +3,7 @@ playgame();
 function playgame() {
 
     // game initializing steps.
-
+    let winner = "New Game"
     let choices = [
         "Rock",
         "Paper",
@@ -27,30 +27,37 @@ function playgame() {
     let i = 0
     while (i < gameMatchCountTotal) {
         playRound()
-    
-        if (winner == "Tie Game") {
-            console.log("Tie Game, rerunning this match.");
-        } else {
-            logMatchWinner();
-            i = i + 1;
-            // print the next round heading.  It's here because 
-            // we don't want it to print when a match results in a tie.
-            (i > 0 && i < gameMatchCountTotal) ? console.log(`Begin Round ${i+1}`) : 0;
-        }
     }
     
     // Show final scores and declare a winner.
     logGameWinner();
+
 
     //********************************************************* */
     // playgame functions follow, all are called within playGame.
     //********************************************************* */
 
     function playRound() {
-        // print the initial round heading.
-        if (i == 0) {
+
+        /*  print the initial round heading.
+          
+            NOTE, winner is determined by the function 
+            evaluateMatchWinner()
+            if the function returns "Tie Game" then
+            we suppress printing the header.
+        */
+
+        if (winner == "New Game") {
+            console.log(`Begin Round ${i+1}`);
+        } else if (winner != "Tie Game") {
             console.log(`Begin Round ${i+1}`);
         }
+
+        /* players makes their choices, 
+            0 = Rock
+            1 = Paper
+            2 = Sissors
+        */
 
         if (player1.playerType == 0) {
             player1.playerChoice = humanChoice();
@@ -62,27 +69,38 @@ function playgame() {
         player2.playerChoice = computerChoice();
         console.log(`Player 2 chooses: ${choices[player2.playerChoice]}, ${player2.playerChoice}`);
 
+        // evaluate both choices and determine a winner.
+        // if it's a tie then we redo the round.
         winner = evaluateMatchWinner();
-        (!(winner == "Tie Game")) ? updatePlayerScores(winner) : 0;
 
+        if (winner=="Tie Game") {
+            console.log("Tie Game, try again.");
+        } else {
+            updatePlayerScores(winner);
+            console.log(`${winner} wins.`)
+
+            logMatchWinner();
+            i = i + 1;
+        }
     }
 
     function selectGameMode() {
         return +prompt("0 = Player v Computer, 1 = Computer v Computer");
-
     }
 
     function computerChoice() {
         return Math.floor(Math.random() * 3);
-
     }
 
     function humanChoice() {
+        /*  no effort is made to validate the user input.  The project
+            didn't call for it.
+        */
         return +prompt("Enter a number; 0 = Rock, 1 = Paper, 2 = Scissors");
-
     }
 
     function updatePlayerScores(winner) {
+        // tally wins for each player.
         if (winner == "Player 1") {
             player1.playerScore += 1;
         } else if (winner == "Player 2") {
@@ -100,6 +118,13 @@ function playgame() {
     }
 
     function evaluateMatchWinner() {
+        /*  In the game of rock, paper, scissors:
+            - paper beats rock
+            - rock beats scissors
+            - scissors beats paper
+
+            Each player combination is evaluated individually.
+        */
 
         if (player1.playerChoice == 0) { // rock
             if (player2.playerChoice == 0) { // rock
