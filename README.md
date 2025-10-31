@@ -2,7 +2,8 @@
 
 My solution to the rock, paper, scissors project reference:\
 \
-https://www.theodinproject.com/lessons/foundations-rock-paper-scissors\
+https://www.theodinproject.com/lessons/foundations-rock-paper-scissors
+\
 \
 In general this is a javascript implementation of rock, paper, scissors which displays
 on the console.  There is no html displayed when the webpage is opened.\
