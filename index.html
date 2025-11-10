@@ -3,9 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ODIN Rock, Paper, Scissors UI</title>
+    <link href="./style.css" rel="stylesheet">
+    <script src="./javascript.js" defer></script>
 </head>
 <body>
-    <script src="./javascript.js"></script>
+
+    <div class = "container game-container">
+
+        <div class = "container controls">
+
+            <div class = "container user-controls">
+                <h1>Choose your object:</h1>
+                <ul class = "player-choices">
+                    <li><button>Rock</button></li>
+                    <li><button>Paper</button></li>
+                    <li><button>Scissors</button></li>
+                    <li><button>Random Selection</button></li>
+                </ul>
+
+            </div>
+
+            <div class = "container game-controls">
+                <h1>Start New Game</h1>
+                <ul>
+                    <li><button>New Game</button></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class = "container game-stats">
+            <h1>Results:</h1>
+            <div class = "container round-results">
+                <h2>Round 1</h2>
+                <ul class = "detail">
+                    <li class="player1 choice">Player 1: Rock</li>
+                    <li class="player2 choice">Player 2: Paper</li>
+                </ul>
+            </div>
+
+            <div class = "container match-message">
+                <div class = "game-msg">Player 2 Wins</div>
+            </div>
+            
+            <div class = "container match-results">
+                <h2>Score:</h2>
+                <ul class="detail">
+                    <li class="player1 current-score">Player 1: 2</li>
+                    <li class="player2 current-score">Player 2: 1 wins</li>
+                </ul>
+            </div>
+        </div>
+    </div> 
+
+    <div class = "container game-message">
+        <div class = "game-msg">Player 1 Wins</div>
+    </div>
+
 </body>
+
 </html>

@@ -1,0 +1,73 @@
+body {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.container {
+    border: solid;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.game-container {
+    display: flex;
+}
+
+.container.match-message {
+    padding: 10px;
+    color: red;
+    font-weight: bold;
+}
+
+.container.game-message {
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    color: red;
+}
+
+.container.game-stats {
+    width: 100%;
+} 
+
+.container.controls {
+    width: 250px;
+}
+
+h1 {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom:0px;
+}
+
+h2 {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px;
+    margin-bottom: 0px;
+}
+
+ul {
+    margin: 0px;
+    padding: 10px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+ul.detail {
+    gap: 0px;
+}
+
+li {
+    width: 100%;
+}
+
+button {
+    width: 100%;
+}
