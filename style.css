@@ -16,7 +16,6 @@ body {
 
 .container.match-message {
     padding: 10px;
-    color: red;
     font-weight: bold;
 }
 
@@ -24,7 +23,22 @@ body {
     font-size: 48px;
     font-weight: bold;
     text-align: center;
-    color: red;
+}
+
+.clear-borders {
+    border: none;
+}
+
+.green-theme {
+    color: green;
+}
+
+.red-theme {
+    color:red;
+}
+
+.black-theme {
+    color:black;
 }
 
 .container.game-stats {
@@ -32,7 +46,7 @@ body {
 } 
 
 .container.controls {
-    width: 250px;
+    width: 275px;
 }
 
 h1 {

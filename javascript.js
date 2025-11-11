@@ -1,7 +1,5 @@
-playgame();
-
-function playgame() {
-
+playGame = function() {
+    
     // game initializing steps.
     let winner = "New Game"
     let choices = [
@@ -13,31 +11,98 @@ function playgame() {
     // define players
     function Player(playerType) {
         this.playerType = playerType; //0 = human, 1 = computer
-        this.playerChoice = 0; //0 Rock, 1 Paper, 2 Scissors
+        this.playerChoice = "Not Selected"; //0 Rock, 1 Paper, 2 Scissors
         this.playerScore = 0; //count of the number of wins
     }
 
-    const player1 = new Player(+selectGameMode());
-    const player2 = new Player(1);
-    const gameMatchCountTotal = 5; // total number of matches to be played in a set.
+    const player1 = new Player(0);
+    const player2 = new Player(1);       
 
-    // rounds are executed in a while loop.  The round counter increments by 1 for 
-    // each round that does not result in a tie.
+    const gameMessage = document.querySelector(".container.game-message");
+    const matchMessage = document.querySelector(".container.match-message");
+    const player1Choice = document.querySelector(".player1.choice");
+    const player2Choice = document.querySelector(".player2.choice");
+    const player1Score = document.querySelector(".player1.current-score");
+    const player2Score = document.querySelector(".player2.current-score");
 
-    let i = 0
-    while (i < gameMatchCountTotal) {
-        playRound()
+    resetGame();
+
+    const userButtons = document.querySelector(".player-choices");
+    getButtonValue = function(e) {
+        if ((player1.playerScore < 5) && (player2.playerScore < 5)) {
+            playRound(e.target.innerText);
+        } else {
+            alert("Game Over, press \"New Game\" to restart it.")
+        }
     }
+    userButtons.addEventListener('click', getButtonValue);
     
-    // Show final scores and declare a winner.
-    logGameWinner();
 
+    function resetGame() {
+        matchMessage.textContent = "";
+        matchMessage.classList.add("clear-borders");
+        showPlayerChoices();
+        showPlayerScores();
+        showGameWinner();
+    }
 
-    //********************************************************* */
-    // playgame functions follow, all are called within playGame.
-    //********************************************************* */
+    function showPlayerChoices() {
+        if (player1.playerChoice == "Not Selected") {
+            player1Choice.textContent = "Player 1: Make Your Choice!"
+        } else {
+            player1Choice.textContent = "Player 1: " + choices[player1.playerChoice];
+        }
+        if (player2.playerChoice == "Not Selected") {
+            player2Choice.textContent = "Player 2: Make Your Choice!"
+        } else {
+            player2Choice.textContent = "Player 2: " + choices[player2.playerChoice];
+        }
+    }
 
-    function playRound() {
+    function showMatchWinner(winner) {
+        matchMessage.classList.remove("clear-borders")
+        matchMessage.classList.remove("green-theme")
+        matchMessage.classList.remove("red-theme")
+        matchMessage.classList.remove("black-theme")
+        matchMessage.textContent = ""
+
+        if (winner == "Player 1") {
+            matchMessage.classList.add("green-theme");
+            matchMessage.textContent = "You win!"
+        } else if (winner == "Player 2") {
+            matchMessage.classList.add("red-theme");
+            matchMessage.textContent = "You lose!"
+        } else if (winner == "Tie Game") {
+            matchMessage.classList.add("black-theme")
+            matchMessage.textContent = "Tie Game, try again."
+        }
+    }
+
+    function showPlayerScores() {
+        player1Score.textContent = "Player 1: " + player1.playerScore;
+        player2Score.textContent = "Player 2: " + player2.playerScore;
+    }
+
+    function showGameWinner() {
+        gameMessage.classList.remove("clear-borders")
+        gameMessage.classList.remove("green-theme")
+        gameMessage.classList.remove("red-theme")
+        gameMessage.classList.remove("black-theme")
+        gameMessage.textContent = ""
+
+        if (player1.playerScore == 5) {
+            gameMessage.classList.add("green-theme")
+            gameMessage.textContent = "GAME OVER, YOU WIN!"
+        } else if (player2.playerScore == 5) {
+            gameMessage.classList.add("red-theme")
+            gameMessage.textContent = "GAME OVER, YOU LOSE!"
+        } else {
+            gameMessage.classList.add("clear-borders")
+            gameMessage.textContent = ""
+        }
+    }
+
+    function playRound(playerChoice) {
 
         /*  print the initial round heading.
           
@@ -47,27 +112,14 @@ function playgame() {
             we suppress printing the header.
         */
 
-        if (winner == "New Game") {
-            console.log(`Begin Round ${i+1}`);
-        } else if (winner != "Tie Game") {
-            console.log(`Begin Round ${i+1}`);
-        }
-
-        /* players makes their choices, 
-            0 = Rock
-            1 = Paper
-            2 = Sissors
-        */
-
-        if (player1.playerType == 0) {
-            player1.playerChoice = humanChoice();
+        if (playerChoice == "Random Selection") {
+            player1.playerChoice = computerChoice();            
         } else {
-            player1.playerChoice = computerChoice();
+            player1.playerChoice = choices.findIndex((elem) => elem == playerChoice);
         }
-        console.log(`Player 1 chooses: ${choices[player1.playerChoice]}, ${player1.playerChoice}`);
-
         player2.playerChoice = computerChoice();
-        console.log(`Player 2 chooses: ${choices[player2.playerChoice]}, ${player2.playerChoice}`);
+
+        showPlayerChoices();
 
         // evaluate both choices and determine a winner.
         // if it's a tie then we redo the round.
@@ -77,26 +129,16 @@ function playgame() {
             console.log("Tie Game, try again.");
         } else {
             updatePlayerScores(winner);
-            console.log(`${winner} wins.`)
-
-            logMatchWinner();
-            i = i + 1;
         }
-    }
 
-    function selectGameMode() {
-        return +prompt("0 = Player v Computer, 1 = Computer v Computer");
+        showPlayerScores();
+        showMatchWinner(winner);
+        showGameWinner();
+
     }
 
     function computerChoice() {
         return Math.floor(Math.random() * 3);
-    }
-
-    function humanChoice() {
-        /*  no effort is made to validate the user input.  The project
-            didn't call for it.
-        */
-        return +prompt("Enter a number; 0 = Rock, 1 = Paper, 2 = Scissors");
     }
 
     function updatePlayerScores(winner) {
@@ -105,15 +147,6 @@ function playgame() {
             player1.playerScore += 1;
         } else if (winner == "Player 2") {
             player2.playerScore += 1;
-        }
-    }
-
-    function evaluateGameWinner() {
-        // no tie values, this is a best of 5 match winner.
-        if (player1.playerScore > player2.playerScore) {
-            return "Player 1";
-        } else {
-            return "Player 2";
         }
     }
 
@@ -167,29 +200,8 @@ function playgame() {
 
     }
 
-    function logMatchWinner() {
-
-        console.log(`Round ${i+1} completed:`);
-        console.log("The scores are:");
-        console.log(`Player 1: ${player1.playerScore} wins.`);
-        console.log(`Player 2: ${player2.playerScore} wins.`);
-        console.log("-------------------------");
-    }
-
-    function logGameWinner() {
-        console.log("");
-        console.log("*************************");
-        console.log("Game Over.");
-        console.log("Final Score:");
-        if (player1.playerType == 0) {
-            console.log(`Player 1: ${player1.playerScore}. (NOTE: Human Player)`)
-        } else {
-            console.log(`Player 1: ${player1.playerScore}. (NOTE: Computer Player)`)
-
-        }
-        console.log(`Player 2: ${player2.playerScore}. (NOTE: I'm always a computer player.)`);
-        console.log(`${evaluateGameWinner()} wins the game.`);
-        console.log("*************************");
-
-    }
 }
+
+gameReset = document.querySelector(".reset-button");
+gameReset.addEventListener('click',playGame);
+playGame();
