@@ -5,27 +5,29 @@ My solution to the rock, paper, scissors project reference:\
 https://www.theodinproject.com/lessons/foundations-rock-paper-scissors
 \
 \
-In general this is a javascript implementation of rock, paper, scissors which displays
-on the console.  There is no html displayed when the webpage is opened.\
+In general this is a javascript implementation of rock, paper, scissors.\
 \
-On execution the game asks if you wish to play in 1 of 2 modes:\
-    - human player 1 vs computer player 2\
-    - computer player 1 vs computer player 2\
-    - the user is prompted to make a choice before the game starts.\
+On start up a human player plays agains the computer, the human makes selections using labeled buttons.
+Computer selection automatically follows;\
 \
-During each round a player chooses rock, paper, or sciccors by entering 0, 1, or 2:\
     - 0 rock\
     - 1 paper\
     - 2 scissors\
 \
-Each match consists of 5 rounds.  At the end of each round\
-    - player choices are printed\
-    - a winner is identified\
-    - current player scores are printed\
+Rock beats Scissors\
+Paper beats Rock\
+Scissors beats Paper\
+\
+A game is played until one player wins a total of 5 matches.  The first player to win 5 matches wins the game.
+\
+At the end of each match a winner is identified and the player score is updated.\
 \
 At the end of the game\
-    - a winner is identified\
+    - a game winner is identified, human wins in green, computer wins in red.\
     - player scores are printed.\
 \
-NOTE: In the event of a tie (i.e. rock vs rock) the round is rerun until a winner 
+If a player attempts to play after the game has ended an alert is displayed reminding the player to 
+start a new game.
+\
+NOTE: In the event of a tie (i.e. rock vs rock) the match is repeated until a winner 
 is identified.
