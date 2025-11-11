@@ -50,22 +50,22 @@ playGame = function() {
 
     function showPlayerChoices() {
         if (player1.playerChoice == "Not Selected") {
-            player1Choice.textContent = "Player 1: Make Your Choice!"
+            player1Choice.textContent = "Player 1: Make Your Choice!";
         } else {
             player1Choice.textContent = "Player 1: " + choices[player1.playerChoice];
         }
         if (player2.playerChoice == "Not Selected") {
-            player2Choice.textContent = "Player 2: Make Your Choice!"
+            player2Choice.textContent = "Player 2: Make Your Choice!";
         } else {
             player2Choice.textContent = "Player 2: " + choices[player2.playerChoice];
         }
     }
 
     function showMatchWinner(winner) {
-        matchMessage.classList.remove("clear-borders")
-        matchMessage.classList.remove("green-theme")
-        matchMessage.classList.remove("red-theme")
-        matchMessage.classList.remove("black-theme")
+        matchMessage.classList.remove("clear-borders");
+        matchMessage.classList.remove("green-theme");
+        matchMessage.classList.remove("red-theme");
+        matchMessage.classList.remove("black-theme");
         matchMessage.textContent = ""
 
         if (winner == "Player 1") {
@@ -75,8 +75,8 @@ playGame = function() {
             matchMessage.classList.add("red-theme");
             matchMessage.textContent = "You lose!"
         } else if (winner == "Tie Game") {
-            matchMessage.classList.add("black-theme")
-            matchMessage.textContent = "Tie Game, try again."
+            matchMessage.classList.add("black-theme");
+            matchMessage.textContent = "Tie Game, try again.";
         }
     }
 
@@ -86,21 +86,21 @@ playGame = function() {
     }
 
     function showGameWinner() {
-        gameMessage.classList.remove("clear-borders")
-        gameMessage.classList.remove("green-theme")
-        gameMessage.classList.remove("red-theme")
-        gameMessage.classList.remove("black-theme")
-        gameMessage.textContent = ""
+        gameMessage.classList.remove("clear-borders");
+        gameMessage.classList.remove("green-theme");
+        gameMessage.classList.remove("red-theme");
+        gameMessage.classList.remove("black-theme");
+        gameMessage.textContent = "";
 
         if (player1.playerScore == 5) {
-            gameMessage.classList.add("green-theme")
-            gameMessage.textContent = "GAME OVER, YOU WIN!"
+            gameMessage.classList.add("green-theme");
+            gameMessage.textContent = "GAME OVER, YOU WIN!";
         } else if (player2.playerScore == 5) {
-            gameMessage.classList.add("red-theme")
-            gameMessage.textContent = "GAME OVER, YOU LOSE!"
+            gameMessage.classList.add("red-theme");
+            gameMessage.textContent = "GAME OVER, YOU LOSE!";
         } else {
-            gameMessage.classList.add("clear-borders")
-            gameMessage.textContent = ""
+            gameMessage.classList.add("clear-borders");
+            gameMessage.textContent = "";
         }
     }
 
