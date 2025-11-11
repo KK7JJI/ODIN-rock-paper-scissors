@@ -1,14 +1,13 @@
 playGame = function() {
     
-    // game initializing steps.
-    let winner = "New Game"
+    let i = 1;
+    let winner = "New Game";
     let choices = [
         "Rock",
         "Paper",
         "Scissors"
     ];
 
-    // define players
     function Player(playerType) {
         this.playerType = playerType; //0 = human, 1 = computer
         this.playerChoice = "Not Selected"; //0 Rock, 1 Paper, 2 Scissors
@@ -24,13 +23,14 @@ playGame = function() {
     const player2Choice = document.querySelector(".player2.choice");
     const player1Score = document.querySelector(".player1.current-score");
     const player2Score = document.querySelector(".player2.current-score");
+    const h2Round = document.querySelector(".h2-round");
 
     resetGame();
 
     const userButtons = document.querySelector(".player-choices");
     getButtonValue = function(e) {
         if ((player1.playerScore < 5) && (player2.playerScore < 5)) {
-            playRound(e.target.innerText);
+            playMatch(e.target.innerText);
         } else {
             alert("Game Over, press \"New Game\" to restart it.")
         }
@@ -41,9 +41,11 @@ playGame = function() {
     function resetGame() {
         matchMessage.textContent = "";
         matchMessage.classList.add("clear-borders");
+        h2Round.textContent = "Round 1";
         showPlayerChoices();
         showPlayerScores();
         showGameWinner();
+
     }
 
     function showPlayerChoices() {
@@ -102,7 +104,7 @@ playGame = function() {
         }
     }
 
-    function playRound(playerChoice) {
+    function playMatch(playerChoice) {
 
         /*  print the initial round heading.
           
@@ -134,6 +136,8 @@ playGame = function() {
         showPlayerScores();
         showMatchWinner(winner);
         showGameWinner();
+        i += 1;
+        h2Round.textContent = "Round " + i;
 
     }
 
@@ -202,6 +206,6 @@ playGame = function() {
 
 }
 
+playGame();
 gameReset = document.querySelector(".reset-button");
 gameReset.addEventListener('click',playGame);
-playGame();
