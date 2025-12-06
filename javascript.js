@@ -14,8 +14,6 @@ playGame = function() {
         this.playerScore = 0; //count of the number of wins
     }
 
-    const player1 = new Player(0);
-    const player2 = new Player(1);       
 
     const gameMessage = document.querySelector(".container.game-message");
     const matchMessage = document.querySelector(".container.match-message");
@@ -25,18 +23,30 @@ playGame = function() {
     const player2Score = document.querySelector(".player2.current-score");
     const h2Round = document.querySelector(".h2-round");
 
-    resetGame();
-
     const userButtons = document.querySelector(".player-choices");
+
     getButtonValue = function(e) {
-        if ((player1.playerScore < 5) && (player2.playerScore < 5)) {
+
+        if ((parseFloat(player1.playerScore) < 5) && ((parseFloat(player2.playerScore)) < 5)) {
             playMatch(e.target.innerText);
         } else {
             alert("Game Over, press \"New Game\" to restart it.")
         }
     }
-    userButtons.addEventListener('click', getButtonValue);
-    
+
+    if (typeof(player1) === "object") {
+        player1.playerScore = 0;
+    } else {
+        player1 = new Player(0);
+    }
+    if (typeof(player2) === "object") {
+        player2.playerScore = 0;
+    } else {
+        player2 = new Player(0);
+        userButtons.addEventListener('click', getButtonValue);
+    }
+
+    resetGame();
 
     function resetGame() {
         matchMessage.textContent = "";
