@@ -44,6 +44,8 @@ function resetGame() {
     console.log("reseting game for new match . . .");
     player1.playerScore = 0;
     player2.playerScore = 0;
+    player1.playerChoice = "Not Selected";
+    player2.playerChoice = "Not Selected";
     matchMessage.textContent = "";
     matchMessage.classList.add("clear-borders");
     h2Round.textContent = "Round 1";
@@ -112,15 +114,15 @@ function showGameWinner() {
 function playMatch(playerChoice) {
 
     /*  print the initial round heading.
-        
-        NOTE, winner is determined by the function 
+
+        NOTE, winner is determined by the function
         evaluateMatchWinner()
         if the function returns "Tie Game" then
         we suppress printing the header.
     */
 
     if (playerChoice == "Random Selection") {
-        player1.playerChoice = computerChoice();            
+        player1.playerChoice = computerChoice();
     } else {
         player1.playerChoice = choices.findIndex((elem) => elem == playerChoice);
     }
